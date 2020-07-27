@@ -5,8 +5,48 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ELMessageFilteringService"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Euston Leisure Message Filtering Service" 
+        Height="450" Width="600"
+        Background="DimGray"
+        FontSize="12"
+        WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
+
+    <Window.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White" />
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="MinHeight" Value="24"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="MinWidth" Value="90"/>
+            <Setter Property="MinHeight" Value="30"/>
+            <Setter Property="Margin" Value="2 2 2 10"/>
+        </Style>
+    </Window.Resources>
+
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="4*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Column 1-->
+        <DockPanel Grid.Column="0" Margin="5 5">
+            <StackPanel>
+                <Label Content="Navigation Panel" HorizontalAlignment="Center"/>
+                <Button Content="{Binding AddMessageButtonContent}" 
+                        Command="{Binding AddMessageButtonCommand}"/>
+                <Button Content="{Binding ImportMessagesButtonContent}" 
+                        Command="{Binding ImportMessagesButtonCommand}"/>
+                <Button Content="{Binding DisplayStatisticsButtonContent}" 
+                        Command="{Binding DisplayStatisticsButtonCommand}"/>
+            </StackPanel>
+        </DockPanel>
+
+        <!-- Column 2-->
+        <ContentControl Content="{Binding ContentControlBinding}" 
+                        Grid.Column="1" Margin="5 5"/>
 
     </Grid>
 </Window>

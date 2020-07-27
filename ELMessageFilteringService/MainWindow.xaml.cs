@@ -11,7 +11,6 @@ namespace ELMessageFilteringService
         public MainWindow()
         {
             InitializeComponent();
-
             this.DataContext = new MainWindowViewModel();
         }
     }
