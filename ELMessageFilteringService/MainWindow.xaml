@@ -22,6 +22,7 @@
             <Setter Property="MinWidth" Value="90"/>
             <Setter Property="MinHeight" Value="30"/>
             <Setter Property="Margin" Value="2 2 2 10"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
         </Style>
     </Window.Resources>
 
@@ -35,6 +36,8 @@
         <DockPanel Grid.Column="0" Margin="5 5">
             <StackPanel>
                 <Label Content="Navigation Panel" HorizontalAlignment="Center"/>
+                <Button Content="{Binding HomeButtonContent}" 
+                        Command="{Binding HomeButtonCommand}"/>
                 <Button Content="{Binding AddMessageButtonContent}" 
                         Command="{Binding AddMessageButtonCommand}"/>
                 <Button Content="{Binding ImportMessagesButtonContent}" 

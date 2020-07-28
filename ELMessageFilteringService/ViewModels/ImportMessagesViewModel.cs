@@ -4,7 +4,18 @@ using System.Text;
 
 namespace ELMessageFilteringService.ViewModels
 {
-    class ImportMessagesViewModel
+    public class ImportMessagesViewModel : BaseViewModel
     {
+        #region UI Binding Fields
+        #endregion
+
+        #region Constructor
+        #endregion
+
+        #region Click Helpers
+        #endregion
+
+        #region Other Helper Methods
+        #endregion
     }
 }

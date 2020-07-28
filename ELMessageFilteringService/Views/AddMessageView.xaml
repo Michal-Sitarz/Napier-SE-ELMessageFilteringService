@@ -7,12 +7,21 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="600">
 
-        <DockPanel Margin="20 10">
-            <StackPanel>
-                <TextBlock/>
-                <TextBox/>
-                <TextBlock/>
-                <TextBox MinLines="4"/>
+    <UserControl.Resources>
+        <Style TargetType="TextBox">
+            <Setter Property="Margin" Value="0 5 0 10" />
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+    </UserControl.Resources>
+
+    <DockPanel>
+        <StackPanel Margin="10 10">
+            <TextBlock Text="{Binding HeaderTextBlock}"/>
+            <TextBox Text="{Binding HeaderTextBox}"/>
+            <TextBlock Text="{Binding BodyTextBlock}"/>
+            <TextBox Text="{Binding BodyTextBox}"  MinLines="4"/>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -20,14 +29,15 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
+                
                 <Button Content="{Binding AddNewMessageButtonContent}"
                         Command="{Binding AddNewMessageButtonCommand}"
                         Grid.Column="1"/>
-                <Button Content="{Binding CancelButtonContent}"
-                        Command="{Binding CancelButtonCommand}"
+                <Button Content="{Binding ClearButtonContent}"
+                        Command="{Binding ClearButtonCommand}"
                         Grid.Column="2"/>
             </Grid>
-            </StackPanel>
-        </DockPanel>
+        </StackPanel>
+    </DockPanel>
 
 </UserControl>
