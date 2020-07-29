@@ -1,4 +1,6 @@
 ﻿using ELMessageFilteringService.Commands;
+using ELMessageFilteringService.Models;
+using ELMessageFilteringService.Services;
 using ELMessageFilteringService.Views;
 using System;
 using System.Collections.Generic;
@@ -25,9 +27,13 @@ namespace ELMessageFilteringService.ViewModels
         public ICommand ClearButtonCommand { get; private set; }
         #endregion
 
+        private readonly MessageService _messageService;
+
         #region Constructor
-        public AddMessageViewModel()
+        public AddMessageViewModel(MessageService messageService)
         {
+            _messageService = messageService;
+
             HeaderTextBlock = "Message Header";
             BodyTextBlock = "Message Body";
             HeaderTextBox = string.Empty;
@@ -44,8 +50,25 @@ namespace ELMessageFilteringService.ViewModels
         #region Click Helpers
         private void AddNewMessageButtonClick()
         {
-            MessageBox.Show("Message has been added.");
-            ClearInputFields();
+            var message = new MessageDTO
+            {
+                Header = HeaderTextBox,
+                Body = BodyTextBox
+            };
+
+            if (message.IsValid())
+            {
+                var newMsg = _messageService.AddNewMessage(message);
+                if (newMsg != null)
+                {
+                    MessageBox.Show($"New {newMsg.Type} message has been added.");
+                    ClearInputFields();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Message has NOT been added!\n\nMessage body cannot be empty.\nMessage header has to be 10 characters long \nwith first letter indicating message type: \nS -> SMS, T -> Tweet, E -> Email,\nfollowed by 9 digits.");
+            }
         }
 
         private void ClearButtonClick()

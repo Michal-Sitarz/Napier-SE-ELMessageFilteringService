@@ -1,6 +1,6 @@
 ﻿namespace ELMessageFilteringService.Models
 {
-    public class EmailSIR : Email
+    public class SpecialIncidentReport : Email
     {
 
     }
