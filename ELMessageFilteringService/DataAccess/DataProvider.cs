@@ -2,15 +2,16 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Windows;
 using System.Text.Json;
+using System.Windows;
+using System.Xml.Serialization;
 
 namespace ELMessageFilteringService.DataAccess
 {
     public class DataProvider : IDataProvider
     {
         private readonly string allMessagesJSONFilePath = @"C:\ELMfiles\AllMessages.json";
-        private readonly string messagesToImportXMLFilePath = @"C:\ELMfiles\MessagesToImport.xml";
+        private readonly string messagesToImportCSVFilePath = @"C:\ELMfiles\MessagesToImport.csv";
         private readonly string abbreviationsListCSVFilePath = @"C:\ELMfiles\AbbreviationsList.csv";
 
         public bool ExportMessage(Message message)
@@ -35,7 +36,29 @@ namespace ELMessageFilteringService.DataAccess
 
         public IList<MessageDTO> ImportMessages()
         {
-            throw new NotImplementedException();
+            var messages = new List<MessageDTO>();
+
+            try
+            {
+                var fileContent = File.ReadAllLines(messagesToImportCSVFilePath);
+                foreach (string fileLine in fileContent)
+                {
+                    string[] line = fileLine.Split(',');
+
+                    messages.Add(new MessageDTO
+                    {
+                        Header = line[0],
+                        Body = line[1]
+                    });
+                }
+
+                return messages;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occured during loading of the List of Messages.\n", ex.ToString());
+                return null;
+            }
         }
 
         public IDictionary<string, string> ImportAbbreviations()

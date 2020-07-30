@@ -25,7 +25,20 @@ namespace ELMessageFilteringService.Services
 
         public IList<Message> GetExistingMessages()
         {
-            throw new NotImplementedException();
+            var existingMessages = new List<Message>();
+            IList<MessageDTO> importedMessages = _dataProvider.ImportMessages();
+
+            foreach (var msg in importedMessages)
+            {
+                existingMessages.Add(AddNewMessage(msg));
+            }
+
+            return existingMessages;
+        }
+
+        public IList<MessageDTO> GetSimpleMessages()
+        {
+            return _dataProvider.ImportMessages();
         }
 
         public Message AddNewMessage(MessageDTO message)
@@ -98,5 +111,6 @@ namespace ELMessageFilteringService.Services
             }
             return (body, "Message has no content!");
         }
+
     }
 }

@@ -1,4 +1,6 @@
-﻿using ELMessageFilteringService.ViewModels;
+﻿using ELMessageFilteringService.DataAccess;
+using ELMessageFilteringService.Services;
+using ELMessageFilteringService.ViewModels;
 using System.Windows.Controls;
 
 namespace ELMessageFilteringService.Views
@@ -11,7 +13,10 @@ namespace ELMessageFilteringService.Views
         public ImportMessagesView()
         {
             InitializeComponent();
-            DataContext = new ImportMessagesViewModel();
+
+            DataProvider dataProvider = new DataProvider();
+            MessageService service = new MessageService(dataProvider);
+            DataContext = new ImportMessagesViewModel(service);
         }
     }
 }

@@ -7,7 +7,40 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="600"
              Background="DarkOliveGreen">
-    <Grid>
-            
-    </Grid>
+
+    <UserControl.Resources>
+        <Style TargetType="TextBox">
+            <Setter Property="Margin" Value="0 5 0 10" />
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+    </UserControl.Resources>
+
+    <DockPanel>
+        <StackPanel Margin="10 10">
+            <TextBlock Text="{Binding HeaderTextBlock}"/>
+            <TextBox Text="{Binding HeaderTextBox}"/>
+            <TextBlock Text="{Binding BodyTextBlock}"/>
+            <TextBox Text="{Binding BodyTextBox}" MinLines="4"
+                     TextWrapping="Wrap" AcceptsReturn="True" 
+                     HorizontalScrollBarVisibility="Disabled" 
+                     VerticalScrollBarVisibility="Auto"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button Content="{Binding ImportButtonContent}"
+                        Command="{Binding ImportButtonCommand}"
+                        Grid.Column="1"/>
+                <Button Content="{Binding NextButtonContent}"
+                        Command="{Binding NextButtonCommand}"
+                        Grid.Column="2"/>
+            </Grid>
+        </StackPanel>
+    </DockPanel>
 </UserControl>
