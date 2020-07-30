@@ -21,7 +21,10 @@
             <TextBlock Text="{Binding HeaderTextBlock}"/>
             <TextBox Text="{Binding HeaderTextBox}"/>
             <TextBlock Text="{Binding BodyTextBlock}"/>
-            <TextBox Text="{Binding BodyTextBox}"  MinLines="4"/>
+            <TextBox Text="{Binding BodyTextBox}" MinLines="4"
+                     TextWrapping="Wrap" AcceptsReturn="True" 
+                     HorizontalScrollBarVisibility="Disabled" 
+                     VerticalScrollBarVisibility="Auto"/>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -29,7 +32,7 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                
+
                 <Button Content="{Binding AddNewMessageButtonContent}"
                         Command="{Binding AddNewMessageButtonCommand}"
                         Grid.Column="1"/>

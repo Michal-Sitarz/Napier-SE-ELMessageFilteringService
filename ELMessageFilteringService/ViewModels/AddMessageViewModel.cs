@@ -13,6 +13,8 @@ namespace ELMessageFilteringService.ViewModels
 {
     public class AddMessageViewModel : BaseViewModel
     {
+        private readonly MessageService _messageService;
+
         #region UI Binding Fields
         public string HeaderTextBlock { get; private set; }
         public string BodyTextBlock { get; private set; }
@@ -26,8 +28,6 @@ namespace ELMessageFilteringService.ViewModels
         public ICommand AddNewMessageButtonCommand { get; private set; }
         public ICommand ClearButtonCommand { get; private set; }
         #endregion
-
-        private readonly MessageService _messageService;
 
         #region Constructor
         public AddMessageViewModel(MessageService messageService)
@@ -52,7 +52,8 @@ namespace ELMessageFilteringService.ViewModels
         {
             var message = new MessageDTO
             {
-                Header = HeaderTextBox,
+                //Header = HeaderTextBox,
+                Header = HeaderTextBox + "123456789", // <- only for testing the UI
                 Body = BodyTextBox
             };
 
@@ -61,7 +62,7 @@ namespace ELMessageFilteringService.ViewModels
                 var newMsg = _messageService.AddNewMessage(message);
                 if (newMsg != null)
                 {
-                    MessageBox.Show($"New {newMsg.Type} message has been added.");
+                    MessageBox.Show($"New {newMsg.Type} message has been added.\n\nSender: {newMsg.Sender}\nContent:\n{newMsg.Content}");
                     ClearInputFields();
                 }
             }

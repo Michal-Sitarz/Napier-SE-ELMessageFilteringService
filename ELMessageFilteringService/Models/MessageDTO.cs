@@ -7,9 +7,9 @@ namespace ELMessageFilteringService.Models
 {
     public class MessageDTO
     {
-        //private string header;
-        //public string Header { get => header; set => value.ToUpper(); }
-        public string Header { get; set; }
+        private string header;
+        public string Header { get => header; set => header = value.ToUpper(); }
+
         public string Body { get; set; }
 
         public bool IsValid()
@@ -17,15 +17,10 @@ namespace ELMessageFilteringService.Models
             if (Body.Length > 0 && Header.Length == 10)
             {
                 char messageTypeIndicator = Header[0];
-                //var messageTypeIndicator = "Sms";
-                // cast int for a char-based enum, as the char is not a valid enum value type
-                if (Enum.IsDefined(typeof(MessageType), (int)messageTypeIndicator)
+
+                if (Enum.IsDefined(typeof(MessageType), (int)messageTypeIndicator) // cast int, as Enum holds "numeric" values
                     && int.TryParse(Header.Substring(1), out _))
                     return true;
-                //if (Enum.TryParse(messageTypeIndicator, out MessageType _) && int.TryParse(Header.Substring(1), out _))
-                //{
-                //    return true;
-                //}
             }
             return false;
         }

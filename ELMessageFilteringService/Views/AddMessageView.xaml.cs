@@ -1,11 +1,12 @@
-﻿using ELMessageFilteringService.Services;
+﻿using ELMessageFilteringService.DataAccess;
+using ELMessageFilteringService.Services;
 using ELMessageFilteringService.ViewModels;
 using System.Windows.Controls;
 
 namespace ELMessageFilteringService.Views
 {
     /// <summary>
-    /// Interaction logic for UserControl1.xaml
+    /// Interaction logic for AddMessageView.xaml
     /// </summary>
     public partial class AddMessageView : UserControl
     {
@@ -13,7 +14,8 @@ namespace ELMessageFilteringService.Views
         {
             InitializeComponent();
 
-            MessageService service = new MessageService();
+            DataProvider dataProvider = new DataProvider();
+            MessageService service = new MessageService(dataProvider);
             DataContext = new AddMessageViewModel(service);
         }
     }
