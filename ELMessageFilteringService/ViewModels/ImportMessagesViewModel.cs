@@ -14,8 +14,8 @@ namespace ELMessageFilteringService.ViewModels
         private readonly MessageService _messageService;
 
         private IList<MessageDTO> importedMessages;
-        private int messageIndex;
-        private int messagesCount;
+        private int currentMessageIndex;
+        private int importedMessagesCount;
 
         #region UI Binding Fields
         public string HeaderTextBlock { get; private set; }
@@ -23,6 +23,9 @@ namespace ELMessageFilteringService.ViewModels
 
         public string HeaderTextBox { get; set; }
         public string BodyTextBox { get; set; }
+        
+        public bool HeaderTextBoxIsReadOnly { get; set; }
+        public bool BodyTextBoxIsReadOnly { get; set; }
 
         public string ImportButtonContent { get; private set; }
         public string NextButtonContent { get; private set; }
@@ -36,10 +39,12 @@ namespace ELMessageFilteringService.ViewModels
         {
             _messageService = messageService;
 
-            HeaderTextBlock = "Message Header";
-            BodyTextBlock = "Message Body";
+            HeaderTextBlock = "Message Header (Raw Data)";
+            BodyTextBlock = "Message Body (Raw Data)";
             HeaderTextBox = string.Empty;
             BodyTextBox = string.Empty;
+            HeaderTextBoxIsReadOnly = true;
+            BodyTextBoxIsReadOnly = true;
 
             ImportButtonContent = "Import";
             NextButtonContent = "Next";
@@ -51,27 +56,29 @@ namespace ELMessageFilteringService.ViewModels
         #region Click Helpers
         private void ImportButtonClick()
         {
+            if (importedMessagesCount != 0)
+            {
+                ResetImportedMessages();
+            }
+
             importedMessages = _messageService.GetSimpleMessages();
-            messagesCount = importedMessages.Count;
+            importedMessagesCount = importedMessages.Count;
             DisplayMessageInTextBoxes();
-            //messageIndex++;
-            //enable "Next" button
+            currentMessageIndex++;
         }
 
         private void NextButtonClick()
         {
-            if (messageIndex < messagesCount)
+            if (currentMessageIndex < importedMessagesCount)
             {
                 DisplayMessageInTextBoxes();
-                messageIndex++;
+                currentMessageIndex++;
             }
-            else if(messageIndex != 0)
+            else if(currentMessageIndex != 0)
             {
                 ClearTextBoxes();
                 MessageBox.Show("No more messages to display.");
                 ResetImportedMessages();
-
-                //disable "Next" button at the last message
             }
             else
             {
@@ -83,10 +90,10 @@ namespace ELMessageFilteringService.ViewModels
         #region Other Helper Methods
         private void DisplayMessageInTextBoxes()
         {
-            if (messagesCount > 0)
+            if (importedMessagesCount > 0)
             {
-                HeaderTextBox = importedMessages[messageIndex].Header;
-                BodyTextBox = importedMessages[messageIndex].Body;
+                HeaderTextBox = importedMessages[currentMessageIndex].Header;
+                BodyTextBox = importedMessages[currentMessageIndex].Body;
                 OnChanged(nameof(HeaderTextBox));
                 OnChanged(nameof(BodyTextBox));
             }
@@ -103,8 +110,8 @@ namespace ELMessageFilteringService.ViewModels
         private void ResetImportedMessages()
         {
             importedMessages = null;
-            messagesCount = 0;
-            messageIndex = 0;
+            importedMessagesCount = 0;
+            currentMessageIndex = 0;
         }
         #endregion
     }

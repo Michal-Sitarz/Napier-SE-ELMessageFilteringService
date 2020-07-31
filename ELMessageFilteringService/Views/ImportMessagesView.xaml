@@ -20,10 +20,12 @@
     <DockPanel>
         <StackPanel Margin="10 10">
             <TextBlock Text="{Binding HeaderTextBlock}"/>
-            <TextBox Text="{Binding HeaderTextBox}"/>
+            <TextBox Text="{Binding HeaderTextBox}"
+                     IsReadOnly="{Binding HeaderTextBoxIsReadOnly}"/>
             <TextBlock Text="{Binding BodyTextBlock}"/>
-            <TextBox Text="{Binding BodyTextBox}" MinLines="4"
-                     TextWrapping="Wrap" AcceptsReturn="True" 
+            <TextBox Text="{Binding BodyTextBox}" 
+                     IsReadOnly="{Binding BodyTextBoxIsReadOnly}"
+                     MinLines="4" TextWrapping="Wrap" AcceptsReturn="True" 
                      HorizontalScrollBarVisibility="Disabled" 
                      VerticalScrollBarVisibility="Auto"/>
             <Grid>

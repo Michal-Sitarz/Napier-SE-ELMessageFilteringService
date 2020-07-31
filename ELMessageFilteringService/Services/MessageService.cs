@@ -61,15 +61,25 @@ namespace ELMessageFilteringService.Services
                     switch (newMessage.Type)
                     {
                         case MessageType.Email:
+                            Email email = (Email)newMessage;
+                            email.SetSubjectContentSIRflag();
+
                             //check if it's SIR
-                            //handle SIR
+                            if (email.IsSIR)
+                            {
+                                //handle SIR
+                            }
                             //quarantine URLs
                             break;
+
                         case MessageType.Sms:
-                            //sanitize
+                            Sms sms = (Sms)newMessage;
+                            sms.SanitizeText(_dataProvider.ImportAbbreviations());
                             break;
+
                         case MessageType.Tweet:
-                            //sanitize
+                            Tweet tweet = (Tweet)newMessage;
+                            tweet.SanitizeText(_dataProvider.ImportAbbreviations());
                             //stats???
                             break;
                     };
@@ -77,7 +87,7 @@ namespace ELMessageFilteringService.Services
                     // add it to the list of messages <- this should be done on the ViewModel, right?
                     // add statistics, if needed <- what about this one?
 
-                    // export msg to a file //TODO
+                    // export msg to a file
                     if (_dataProvider.ExportMessage(newMessage))
                     {
                         // return message for display

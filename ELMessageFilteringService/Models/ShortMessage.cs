@@ -6,16 +6,24 @@ namespace ELMessageFilteringService.Models
     {
         public override string Content { get; set; } //TODO > must be max 140 characters
 
-        //private readonly IDictionary<string, string> _abbreviations;
-
-        //public ShortMessage(IDictionary<string,string> abbreviations)
-        //{
-        //    _abbreviations = abbreviations;
-        //}
-
-        public void SanitizeText(IDictionary<string,string> abbreviations)
+        public void SanitizeText(IDictionary<string, string> abbreviations)
         {
+            if(Content.Length > 0 && abbreviations != null)
+            {
+                string[] contentWords = Content.Split(' ');
 
+                var keywords = abbreviations.Keys;
+
+                for (int i = 0; i < contentWords.Length; i++)
+                {
+                    if (keywords.Contains(contentWords[i].ToUpper()))
+                    {
+                        contentWords[i] += " <" + abbreviations[contentWords[i]] + ">";
+                    }
+                }
+
+                Content = string.Join(' ', contentWords);
+            }
         }
     }
 }
