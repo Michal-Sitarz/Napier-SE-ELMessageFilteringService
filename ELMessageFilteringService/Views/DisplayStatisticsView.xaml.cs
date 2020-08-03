@@ -1,4 +1,6 @@
-﻿using ELMessageFilteringService.ViewModels;
+﻿using ELMessageFilteringService.DataAccess;
+using ELMessageFilteringService.Services;
+using ELMessageFilteringService.ViewModels;
 using System.Windows.Controls;
 
 namespace ELMessageFilteringService.Views
@@ -11,7 +13,10 @@ namespace ELMessageFilteringService.Views
         public DisplayStatisticsView()
         {
             InitializeComponent();
-            DataContext = new DisplayStatisticsViewModel();
+
+            IDataProvider dataProvider = new DataProvider();
+            IStatisticsService statisticsService = new StatisticsService(dataProvider);
+            DataContext = new DisplayStatisticsViewModel(statisticsService);
         }
     }
 }

@@ -13,12 +13,14 @@ namespace ELMessageFilteringService.DataAccess
         private readonly string lastMessageJSONFilePath = @"C:\ELMfiles\LastMessage.json";
         private readonly string messagesToImportCSVFilePath = @"C:\ELMfiles\MessagesToImport.csv";
         private readonly string abbreviationsListCSVFilePath = @"C:\ELMfiles\AbbreviationsList.csv";
+        private readonly string statisticsJSONFilePath = @"C:\ELMfiles\Statistics.json";
+
 
         public bool ExportMessage(object message)
         {
             var jsonOptions = new JsonSerializerOptions
             {
-                WriteIndented = true,
+                WriteIndented = true
             };
 
             try
@@ -79,6 +81,41 @@ namespace ELMessageFilteringService.DataAccess
             {
                 MessageBox.Show("An error occured during loading of the List of Abbreviations.\n", ex.ToString());
                 return null;
+            }
+        }
+
+        public StatisticsDTO ImportStatistics()
+        {
+            try
+            {
+                var fileContent = File.ReadAllText(statisticsJSONFilePath);
+                var statsFromJson = JsonSerializer.Deserialize<StatisticsDTO>(fileContent);
+                return statsFromJson;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occured during importing of statistics from the JSON file.\n", ex.ToString());
+                return null;
+            }
+        }
+
+        public bool ExportStatistics(StatisticsDTO statistics)
+        {
+            var jsonOptions = new JsonSerializerOptions
+            {
+                WriteIndented = true
+            };
+
+            try
+            {
+                var statisticsInJson = JsonSerializer.Serialize(statistics, jsonOptions);
+                File.WriteAllText(statisticsJSONFilePath, statisticsInJson);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occured during exporting of statistics to the JSON file.\n", ex.ToString());
+                return false;
             }
         }
     }

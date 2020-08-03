@@ -15,7 +15,7 @@ namespace ELMessageFilteringService.Views
             InitializeComponent();
 
             DataProvider dataProvider = new DataProvider();
-            StatisticsService statisticsService = new StatisticsService();
+            StatisticsService statisticsService = new StatisticsService(dataProvider);
             MessageService messageService = new MessageService(dataProvider, statisticsService);
 
             DataContext = new ImportMessagesViewModel(messageService);

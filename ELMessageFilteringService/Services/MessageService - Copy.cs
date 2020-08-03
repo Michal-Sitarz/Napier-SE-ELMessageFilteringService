@@ -1,31 +1,22 @@
 ﻿using ELMessageFilteringService.DataAccess;
 using ELMessageFilteringService.Models;
 using ELMessageFilteringService.Models.Enums;
-using ELMessageFilteringService.ViewModels;
-using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Windows;
 
 namespace ELMessageFilteringService.Services
 {
-    public class MessageService : IMessageService
+    public class MessageServiceCopy : IMessageService
     {
         private readonly IDataProvider _dataProvider;
         private readonly IStatisticsService _statisticsService;
 
         #region Constructor
-        public MessageService(IDataProvider dataProvider, IStatisticsService statisticsService)
+        public MessageServiceCopy(IDataProvider dataProvider, IStatisticsService statisticsService)
         {
             _dataProvider = dataProvider;
             _statisticsService = statisticsService;
         }
         #endregion
-
-        //public IDictionary<string, string> GetAbbreviations()
-        //{
-        //    return (Dictionary<string, string>)_dataProvider.ImportAbbreviations();
-        //}
 
         public IList<RawMessage> GetRawMessages()
         {
@@ -50,8 +41,7 @@ namespace ELMessageFilteringService.Services
             if (message.IsValid())
             {
                 // New Message and Message Type
-                Message newMessage = GetMessageWithType(message);
-
+                Message newMessage = GetMessageWithType(message.Header[0]);
                 if (newMessage != null)
                 {
                     // Id
@@ -68,14 +58,13 @@ namespace ELMessageFilteringService.Services
                         case MessageType.Email:
                             Email email = (Email)newMessage;
                             email.SetSubjectContentAndSIRflag(); // remaining Email properties
-
                             var quarantinedUrls = email.SterilizeContentFromUrls();
                             _statisticsService.AddQuarantinedUrls(quarantinedUrls);
 
                             if (email.IsSIR)
                             {
                                 SIR sir = (SIR)newMessage;
-                                
+
                                 sir.SetSportCentreCodeAndNatureOfIncident(); // remaining SIR properties
                                 _statisticsService.AddSIRs(sir.SportCentreCode, sir.NatureOfIncident);
                             }
@@ -84,6 +73,7 @@ namespace ELMessageFilteringService.Services
                         case MessageType.Sms:
                             Sms sms = (Sms)newMessage;
                             sms.SanitizeContent(_dataProvider.ImportAbbreviations());
+
                             break;
 
                         case MessageType.Tweet:
@@ -105,7 +95,6 @@ namespace ELMessageFilteringService.Services
                     // export msg to a file
                     if (_dataProvider.ExportMessage(newMessage))
                     {
-                        _statisticsService.UpdateStatistics();
                         // return fully-processed message to the ViewModel
                         return newMessage;
                     }
@@ -116,34 +105,15 @@ namespace ELMessageFilteringService.Services
 
         // private helpers
 
-        private Message GetMessageWithType(RawMessage message)
+        private Message GetMessageWithType(char typeIndicator)
         {
-            switch (message.Header[0])
+            return typeIndicator switch
             {
-                case 'S':
-                    return new Sms() { Type = MessageType.Sms };
-                case 'T':
-                    return new Tweet() { Type = MessageType.Tweet };
-                case 'E':
-                    var (_, content) = ExtractSenderAndContent(message.Body);
-                    Email email = new Email()
-                    {
-                        Content = content
-                    };
-                    email.SetSubjectContentAndSIRflag();
-                    if (email.IsSIR)
-                    {
-                        return new SIR() { Type = MessageType.Email }; // SIR is a special case of an Email
-                    }
-                    else
-                    {
-                        return new Email() { Type = MessageType.Email };
-                    }
-                default:
-                    return null;
-
-            }
-
+                'E' => new Email() { Type = MessageType.Email },
+                'S' => new Sms() { Type = MessageType.Sms },
+                'T' => new Tweet() { Type = MessageType.Tweet },
+                _ => null
+            };
         }
 
         private (string sender, string content) ExtractSenderAndContent(string body)

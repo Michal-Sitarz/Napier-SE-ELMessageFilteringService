@@ -48,7 +48,7 @@ namespace ELMessageFilteringService.Models
                 var subject = Content.Substring(0, 20);
                 var content = Content.Substring(20);
                 
-                Subject = subject;
+                Subject = subject.TrimEnd();
                 Content = content;
 
                 if (Subject.StartsWith("SIR"))

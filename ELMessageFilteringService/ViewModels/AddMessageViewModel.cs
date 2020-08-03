@@ -14,7 +14,7 @@ namespace ELMessageFilteringService.ViewModels
 {
     public class AddMessageViewModel : BaseViewModel
     {
-        private readonly MessageService _messageService;
+        private readonly IMessageService _messageService;
 
         #region UI Binding Fields
         public string HeaderTextBlock { get; private set; }
@@ -31,7 +31,7 @@ namespace ELMessageFilteringService.ViewModels
         #endregion
 
         #region Constructor
-        public AddMessageViewModel(MessageService messageService)
+        public AddMessageViewModel(IMessageService messageService)
         {
             _messageService = messageService;
 
@@ -67,7 +67,7 @@ namespace ELMessageFilteringService.ViewModels
                     MessageBox.Show($"New {newMsg.Type} message has been added.\n\nSender: {newMsg.Sender}\nContent:\n{newMsg.Content}");
                     ClearInputFields();
 
-
+                    
 
                 }
             }

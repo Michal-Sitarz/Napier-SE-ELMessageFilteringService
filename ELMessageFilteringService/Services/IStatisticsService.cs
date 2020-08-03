@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ELMessageFilteringService.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,9 +7,9 @@ namespace ELMessageFilteringService.Services
 {
     public interface IStatisticsService
     {
-        //public void LoadStatistics();
+        public StatisticsDTO GetStatistics();
 
-        //public void UpdateStatistics();
+        public void UpdateStatistics();
 
         public void AddHashtags(IList<string> hashtags);
 

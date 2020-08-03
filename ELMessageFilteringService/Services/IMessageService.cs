@@ -9,6 +9,5 @@ namespace ELMessageFilteringService.Services
 
         public IList<Message> GetExistingMessages();
 
-        //public IDictionary<string, string> GetAbbreviations();
     }
 }

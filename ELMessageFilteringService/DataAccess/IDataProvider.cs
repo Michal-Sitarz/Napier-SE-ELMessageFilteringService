@@ -11,5 +11,9 @@ namespace ELMessageFilteringService.DataAccess
 
         public IDictionary<string, string> ImportAbbreviations();
 
+        public StatisticsDTO ImportStatistics();
+
+        public bool ExportStatistics(StatisticsDTO statistics);
+
     }
 }

@@ -6,17 +6,8 @@ namespace ELMessageFilteringService.Models
 {
     public class SIR : Email
     {
-        //private Email email;
-
-        //public SIR(Email email)
-        //{
-        //    this.email = email;
-        //}
-
         public string SportCentreCode { get; private set; }
         public string NatureOfIncident { get; private set; }
-
-
 
         public void SetSportCentreCodeAndNatureOfIncident()
         {

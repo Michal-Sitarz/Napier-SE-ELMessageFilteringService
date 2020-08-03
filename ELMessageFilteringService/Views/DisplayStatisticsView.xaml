@@ -5,9 +5,40 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ELMessageFilteringService.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="600"
-             Background="DarkSlateBlue">
-    <Grid>
+             d:DesignHeight="600" d:DesignWidth="700">
+    <UserControl.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Margin" Value="0 0 0 7"/>
+        </Style>
+        <Style TargetType="DataGrid">
+            <Setter Property="IsReadOnly" Value="True"/>
+            <Setter Property="HeadersVisibility" Value="None"/>
+            <Setter Property="Margin" Value="0 0 0 20"/>
+        </Style>
+    </UserControl.Resources>
+
+    <DockPanel>
+        <StackPanel Margin="20 20">
+
+            <TextBlock Text="{Binding HashtagsTextBlock}"/>
+            <DataGrid ItemsSource="{Binding HashtagsCollection}" />
+
+            <TextBlock Text="{Binding MentionsTextBlock}"/>
+            <DataGrid ItemsSource="{Binding MentionsCollection}"/>
+
+            <TextBlock Text="{Binding SIRsTextBlock}"/>
+            <DataGrid ItemsSource="{Binding SIRsCollection}"/>
+
+            <TextBlock Text="{Binding UrlsTextBlock}"/>
+            <DataGrid ItemsSource="{Binding UrlsCollection}">
+            <!--AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Name}"/>
+                </DataGrid.Columns>-->
+            </DataGrid>
             
-    </Grid>
+        </StackPanel>
+    </DockPanel>
 </UserControl>

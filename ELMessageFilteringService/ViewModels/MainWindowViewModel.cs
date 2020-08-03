@@ -70,11 +70,6 @@ namespace ELMessageFilteringService.ViewModels
         #endregion
 
         #region Other Helpers
-        //public void UpdateViewModel(UserControl x)
-        //{
-        //    ContentControlBinding = x;
-        //    OnChanged(nameof(ContentControlBinding));
-        //}
         #endregion
     }
 }

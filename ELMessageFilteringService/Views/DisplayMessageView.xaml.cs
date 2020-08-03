@@ -1,4 +1,6 @@
-﻿using ELMessageFilteringService.ViewModels;
+﻿using ELMessageFilteringService.DataAccess;
+using ELMessageFilteringService.Services;
+using ELMessageFilteringService.ViewModels;
 using System.Windows.Controls;
 
 namespace ELMessageFilteringService.Views
@@ -11,6 +13,7 @@ namespace ELMessageFilteringService.Views
         public DisplayMessageView()
         {
             InitializeComponent();
+
             DataContext = new DisplayMessageViewModel();
         }
     }
