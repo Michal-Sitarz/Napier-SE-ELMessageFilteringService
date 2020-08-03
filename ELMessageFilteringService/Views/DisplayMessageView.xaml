@@ -7,7 +7,19 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="600"
              Background="DarkOrange">
-    <Grid>
+    <StackPanel>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
             
-    </Grid>
+            <TextBlock Grid.Column="0" Text="{Binding IdTextBlock}"/>
+            <TextBox Grid.Column="1" Text="{Binding IdTextBox}"/>
+            <TextBlock Grid.Column="0" Text="{Binding TypeTextBlock}"/>
+            <TextBox Grid.Column="1" Text="{Binding TypeTextBox}"/>
+            <TextBlock Grid.Column="0" Text="{Binding IdTextBlock}"/>
+            <TextBox Grid.Column="1" Text="{Binding IdTextBox}"/>
+        </Grid>
+    </StackPanel>
 </UserControl>

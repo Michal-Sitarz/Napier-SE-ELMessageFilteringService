@@ -1,6 +1,7 @@
 ﻿using ELMessageFilteringService.DataAccess;
 using ELMessageFilteringService.Models;
 using ELMessageFilteringService.Models.Enums;
+using ELMessageFilteringService.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,22 +12,30 @@ namespace ELMessageFilteringService.Services
     public class MessageService : IMessageService
     {
         private readonly IDataProvider _dataProvider;
-        //private readonly IDictionary<string, string> abbreviations;
+        private readonly IStatisticsService _statisticsService;
 
-        public MessageService(IDataProvider dataProvider)
+        #region Constructor
+        public MessageService(IDataProvider dataProvider, IStatisticsService statisticsService)
         {
             _dataProvider = dataProvider;
+            _statisticsService = statisticsService;
         }
+        #endregion
 
-        public IDictionary<string, string> GetAbbreviations()
+        //public IDictionary<string, string> GetAbbreviations()
+        //{
+        //    return (Dictionary<string, string>)_dataProvider.ImportAbbreviations();
+        //}
+
+        public IList<RawMessage> GetRawMessages()
         {
-            return (Dictionary<string, string>)_dataProvider.ImportAbbreviations();
+            return _dataProvider.ImportMessages();
         }
 
         public IList<Message> GetExistingMessages()
         {
             var existingMessages = new List<Message>();
-            IList<MessageDTO> importedMessages = _dataProvider.ImportMessages();
+            IList<RawMessage> importedMessages = GetRawMessages();
 
             foreach (var msg in importedMessages)
             {
@@ -36,23 +45,18 @@ namespace ELMessageFilteringService.Services
             return existingMessages;
         }
 
-        public IList<MessageDTO> GetSimpleMessages()
-        {
-            return _dataProvider.ImportMessages();
-        }
-
-        public Message AddNewMessage(MessageDTO message)
+        public Message AddNewMessage(RawMessage message)
         {
             if (message.IsValid())
             {
-                // detect message type and generate New Message accordingly
+                // New Message and Message Type
                 Message newMessage = GetMessageWithType(message.Header[0]);
                 if (newMessage != null)
                 {
                     // Id
                     newMessage.Id = message.Header;
 
-                    // extract Sender and Content from Body
+                    // Sender and Content
                     var (sender, content) = ExtractSenderAndContent(message.Body);
                     newMessage.Sender = sender;
                     newMessage.Content = content;
@@ -62,35 +66,45 @@ namespace ELMessageFilteringService.Services
                     {
                         case MessageType.Email:
                             Email email = (Email)newMessage;
-                            email.SetSubjectContentSIRflag();
+                            email.SetSubjectContentAndSIRflag(); // remaining Email properties
+                            var quarantinedUrls = email.SterilizeContentFromUrls();
+                            _statisticsService.AddQuarantinedUrls(quarantinedUrls);
 
-                            //check if it's SIR
                             if (email.IsSIR)
                             {
-                                //handle SIR
+                                SIR sir = (SIR)newMessage;
+
+                                sir.SetSportCentreCodeAndNatureOfIncident(); // remaining SIR properties
+                                _statisticsService.AddSIRs(sir.SportCentreCode, sir.NatureOfIncident);
                             }
-                            //quarantine URLs
                             break;
 
                         case MessageType.Sms:
                             Sms sms = (Sms)newMessage;
-                            sms.SanitizeText(_dataProvider.ImportAbbreviations());
+                            sms.SanitizeContent(_dataProvider.ImportAbbreviations());
+
                             break;
 
                         case MessageType.Tweet:
                             Tweet tweet = (Tweet)newMessage;
-                            tweet.SanitizeText(_dataProvider.ImportAbbreviations());
-                            //stats???
+                            tweet.SanitizeContent(_dataProvider.ImportAbbreviations());
+
+                            tweet.CheckContentForHashtagsAndMentions();
+                            if (tweet.Hashtags != null && tweet.Hashtags.Count > 0)
+                            {
+                                _statisticsService.AddHashtags(tweet.Hashtags);
+                            }
+                            if (tweet.Mentions != null && tweet.Mentions.Count > 0)
+                            {
+                                _statisticsService.AddMentions(tweet.Mentions);
+                            }
                             break;
                     };
-
-                    // add it to the list of messages <- this should be done on the ViewModel, right?
-                    // add statistics, if needed <- what about this one?
 
                     // export msg to a file
                     if (_dataProvider.ExportMessage(newMessage))
                     {
-                        // return message for display
+                        // return fully-processed message to the ViewModel
                         return newMessage;
                     }
                 }
@@ -99,6 +113,7 @@ namespace ELMessageFilteringService.Services
         }
 
         // private helpers
+
         private Message GetMessageWithType(char typeIndicator)
         {
             return typeIndicator switch

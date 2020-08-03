@@ -13,7 +13,7 @@ namespace ELMessageFilteringService.ViewModels
     {
         private readonly MessageService _messageService;
 
-        private IList<MessageDTO> importedMessages;
+        private IList<RawMessage> importedMessages;
         private int currentMessageIndex;
         private int importedMessagesCount;
 
@@ -61,7 +61,7 @@ namespace ELMessageFilteringService.ViewModels
                 ResetImportedMessages();
             }
 
-            importedMessages = _messageService.GetSimpleMessages();
+            importedMessages = _messageService.GetRawMessages();
             importedMessagesCount = importedMessages.Count;
             DisplayMessageInTextBoxes();
             currentMessageIndex++;

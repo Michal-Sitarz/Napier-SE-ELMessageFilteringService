@@ -10,10 +10,11 @@ namespace ELMessageFilteringService.DataAccess
     public class DataProvider : IDataProvider
     {
         private readonly string allMessagesJSONFilePath = @"C:\ELMfiles\AllMessages.json";
+        private readonly string lastMessageJSONFilePath = @"C:\ELMfiles\LastMessage.json";
         private readonly string messagesToImportCSVFilePath = @"C:\ELMfiles\MessagesToImport.csv";
         private readonly string abbreviationsListCSVFilePath = @"C:\ELMfiles\AbbreviationsList.csv";
 
-        public bool ExportMessage(Message message)
+        public bool ExportMessage(object message)
         {
             var jsonOptions = new JsonSerializerOptions
             {
@@ -24,6 +25,7 @@ namespace ELMessageFilteringService.DataAccess
             {
                 var messageInJson = JsonSerializer.Serialize(message, jsonOptions);
                 File.AppendAllText(allMessagesJSONFilePath, messageInJson + "\n");
+                File.WriteAllText(lastMessageJSONFilePath, messageInJson);
                 return true;
             }
             catch (Exception ex)
@@ -33,9 +35,9 @@ namespace ELMessageFilteringService.DataAccess
             }
         }
 
-        public IList<MessageDTO> ImportMessages()
+        public IList<RawMessage> ImportMessages()
         {
-            var messages = new List<MessageDTO>();
+            var messages = new List<RawMessage>();
 
             try
             {
@@ -44,7 +46,7 @@ namespace ELMessageFilteringService.DataAccess
                 {
                     string[] line = fileLine.Split(',');
 
-                    messages.Add(new MessageDTO
+                    messages.Add(new RawMessage
                     {
                         Header = line[0],
                         Body = line[1]
@@ -79,6 +81,5 @@ namespace ELMessageFilteringService.DataAccess
                 return null;
             }
         }
-
     }
 }

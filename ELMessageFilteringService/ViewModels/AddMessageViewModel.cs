@@ -1,5 +1,6 @@
 ﻿using ELMessageFilteringService.Commands;
 using ELMessageFilteringService.Models;
+using ELMessageFilteringService.Models.Enums;
 using ELMessageFilteringService.Services;
 using ELMessageFilteringService.Views;
 using System;
@@ -50,7 +51,7 @@ namespace ELMessageFilteringService.ViewModels
         #region Click Helpers
         private void AddNewMessageButtonClick()
         {
-            var message = new MessageDTO
+            var message = new RawMessage
             {
                 //Header = HeaderTextBox,
                 Header = HeaderTextBox + "123456789", // <- only for testing the UI
@@ -62,9 +63,12 @@ namespace ELMessageFilteringService.ViewModels
                 var newMsg = _messageService.AddNewMessage(message);
                 if (newMsg != null)
                 {
-
+                    //Display newly added message in a new Window using DisplayViewModel
                     MessageBox.Show($"New {newMsg.Type} message has been added.\n\nSender: {newMsg.Sender}\nContent:\n{newMsg.Content}");
                     ClearInputFields();
+
+
+
                 }
             }
             else

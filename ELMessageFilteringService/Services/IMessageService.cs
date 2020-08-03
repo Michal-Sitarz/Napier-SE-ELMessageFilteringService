@@ -5,10 +5,10 @@ namespace ELMessageFilteringService.Services
 {
     public interface IMessageService
     {
-        public Message AddNewMessage(MessageDTO message);
+        public Message AddNewMessage(RawMessage message);
 
         public IList<Message> GetExistingMessages();
 
-        public IDictionary<string, string> GetAbbreviations();
+        //public IDictionary<string, string> GetAbbreviations();
     }
 }

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ELMessageFilteringService.Models
 {
-    public class MessageDTO
+    public class RawMessage
     {
         private string header;
         public string Header { get => header; set => header = value.ToUpper(); }

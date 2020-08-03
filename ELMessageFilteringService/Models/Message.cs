@@ -5,12 +5,11 @@ namespace ELMessageFilteringService.Models
 {
     public abstract class Message
     {
-        //public char[] Id { get; set; } = new char[10];
         private string id;
         public string Id
         {
             get => id;
-            set => id = value.Substring(0, 9);
+            set => id = value.Substring(0, 9); // Defensive measure - discard any overflowing characters.
         }
 
         public MessageType Type { get; set; }
@@ -25,5 +24,6 @@ namespace ELMessageFilteringService.Models
         public abstract string Content { get; set; }
 
         public abstract bool IsValidSender(string sender);
+
     }
 }

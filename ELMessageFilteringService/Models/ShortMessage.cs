@@ -4,9 +4,24 @@ namespace ELMessageFilteringService.Models
 {
     public abstract class ShortMessage : Message
     {
-        public override string Content { get; set; } //TODO > must be max 140 characters
+        private string content;
+        public override string Content {
+            get => content;
+            set
+            {
+                if (value.Length > 140)
+                {
+                    content = value.Substring(0, 140); // Make sure Content has 140 characters max. Overflowing characters will be discarded.
+                }
+                else
+                {
+                    content = value;
+                }
 
-        public void SanitizeText(IDictionary<string, string> abbreviations)
+            }
+        }
+
+        public void SanitizeContent(IDictionary<string, string> abbreviations)
         {
             if(Content.Length > 0 && abbreviations != null)
             {
