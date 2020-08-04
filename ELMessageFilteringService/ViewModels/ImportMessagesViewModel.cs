@@ -25,7 +25,7 @@ namespace ELMessageFilteringService.ViewModels
 
         public string HeaderTextBox { get; set; }
         public string BodyTextBox { get; set; }
-        
+
         public bool HeaderTextBoxIsReadOnly { get; set; }
         public bool BodyTextBoxIsReadOnly { get; set; }
 
@@ -69,20 +69,20 @@ namespace ELMessageFilteringService.ViewModels
 
             importedMessages = _messageService.GetRawMessages();
             importedMessagesCount = importedMessages.Count;
-            DisplayMessageInTextBoxes();
-            currentMessageIndex++;
+
+            DisplayNextMessage();
         }
 
         private void NextButtonClick()
         {
             if (currentMessageIndex < importedMessagesCount)
             {
-                DisplayMessageInTextBoxes();
-                currentMessageIndex++;
+                DisplayNextMessage();
             }
-            else if(currentMessageIndex != 0)
+            else if (currentMessageIndex != 0)
             {
                 ClearTextBoxes();
+                ClearDisplayedMessage();
                 MessageBox.Show("No more messages to display.");
                 ResetImportedMessages();
             }
@@ -94,7 +94,23 @@ namespace ELMessageFilteringService.ViewModels
         #endregion
 
         #region Other Helper Methods
-        private void DisplayMessageInTextBoxes()
+        private void DisplayNextMessage()
+        {
+            var rawMessage = importedMessages[currentMessageIndex];
+            if (rawMessage.IsValid())
+            {
+                var newMsg = _messageService.AddNewMessage(rawMessage);
+                if (newMsg != null)
+                {
+                    ContentControlBinding = new DisplayMessageView(newMsg);
+                    OnChanged(nameof(ContentControlBinding));
+                }
+            }
+            DisplayRawMessageInTextBoxes();
+            currentMessageIndex++;
+        }
+
+        private void DisplayRawMessageInTextBoxes()
         {
             if (importedMessagesCount > 0)
             {
@@ -111,6 +127,12 @@ namespace ELMessageFilteringService.ViewModels
             BodyTextBox = string.Empty;
             OnChanged(nameof(HeaderTextBox));
             OnChanged(nameof(BodyTextBox));
+        }
+
+        public void ClearDisplayedMessage()
+        {
+            ContentControlBinding = new DefaultView();
+            OnChanged(nameof(ContentControlBinding));
         }
 
         private void ResetImportedMessages()
