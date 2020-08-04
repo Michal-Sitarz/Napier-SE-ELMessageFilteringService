@@ -16,7 +16,6 @@
         </Style>
     </UserControl.Resources>
 
-    <DockPanel>
         <StackPanel Margin="20 20">
             <TextBlock Text="{Binding HeaderTextBlock}"/>
             <TextBox Text="{Binding HeaderTextBox}"/>
@@ -49,56 +48,6 @@
                     Visibility="{Binding CloseMessageButtonVisibility, Converter={StaticResource BoolToVisibility}}"
                     Margin="100 10 100 10"/>
             
-            <!-- OBSOLETE OLD GRID-->
-            <!--
-            <StackPanel>
-                <Label Content="{Binding NewMessageLabel}"/>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="3*"/>
-                    </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                    
-                    <TextBlock Text="{Binding IdTextBlock}" Grid.Column="0" Grid.Row="0"/>
-                    <TextBox Text="{Binding IdTextBox}" Grid.Column="1" Grid.Row="0"/>
-                    
-                    <TextBlock Text="{Binding TypeTextBlock}" Grid.Column="0" Grid.Row="1"/>
-                    <TextBox Text="{Binding TypeTextBox}" Grid.Column="1" Grid.Row="1"/>
-                    
-                    <TextBlock Text="{Binding SenderTextBlock}" Grid.Column="0" Grid.Row="2"/>
-                    <TextBox Text="{Binding SenderTextBox}" Grid.Column="1" Grid.Row="2"/>
-                    
-                    <TextBlock Text="{Binding ContentTextBlock}" Grid.Column="0" Grid.Row="3"/>
-                    <TextBox Text="{Binding ContentTextBox}" Grid.Column="1" Grid.Row="3"/>
-                    
-                    <TextBlock Text="{Binding SubjectTextBlock}" Grid.Column="0" Grid.Row="4"/>
-                    <TextBox Text="{Binding SubjectTextBox}" Grid.Column="1" Grid.Row="4"/>
-                    
-                    <TextBlock Text="{Binding IsSIRTextBlock}" Grid.Column="0" Grid.Row="5"/>
-                    <TextBox Text="{Binding IsSIRTextBox}" Grid.Column="1" Grid.Row="5"/>
-                    
-                    <TextBlock Text="{Binding SportCentreCodeTextBlock}" Grid.Column="0" Grid.Row="6"/>
-                    <TextBox Text="{Binding SportCentreCodeTextBox}" Grid.Column="1" Grid.Row="6"/>
-                    
-                    <TextBlock Text="{Binding NatureOfIncidentTextBlock}" Grid.Column="0" Grid.Row="7"/>
-                    <TextBox Text="{Binding NatureOfIncidentTextBox}" Grid.Column="1" Grid.Row="7"/>
-
-                </Grid>
-                
-            </StackPanel>
-            -->
-            
         </StackPanel>
-    </DockPanel>
 
 </UserControl>
