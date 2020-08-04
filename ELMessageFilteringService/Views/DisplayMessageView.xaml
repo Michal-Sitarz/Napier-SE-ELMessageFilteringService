@@ -62,20 +62,28 @@
             <TextBox Text="{Binding ContentTextBox}" Grid.Column="1" Grid.Row="3" MinLines="4" MaxLines="4"/>
 
             <!--Row 5-->
-            <TextBlock Text="{Binding SubjectTextBlock}" Grid.Column="0" Grid.Row="4"/>
-            <TextBox Text="{Binding SubjectTextBox}" Grid.Column="1" Grid.Row="4"/>
+            <TextBlock Text="{Binding SubjectTextBlock}" Grid.Column="0" Grid.Row="4" 
+                       Visibility="{Binding SubjectVisibility, Converter={StaticResource BoolToVisibility}}"/>
+            <TextBox Text="{Binding SubjectTextBox}" Grid.Column="1" Grid.Row="4"
+                     Visibility="{Binding SubjectVisibility, Converter={StaticResource BoolToVisibility}}"/>
 
             <!--Row 6-->
-            <TextBlock Text="{Binding IsSIRTextBlock}" Grid.Column="0" Grid.Row="5"/>
-            <TextBox Text="{Binding IsSIRTextBox}" Grid.Column="1" Grid.Row="5"/>
+            <TextBlock Text="{Binding IsSIRTextBlock}" Grid.Column="0" Grid.Row="5"
+                       Visibility="{Binding IsSIRVisibility, Converter={StaticResource BoolToVisibility}}"/>
+            <TextBox Text="{Binding IsSIRTextBox}" Grid.Column="1" Grid.Row="5"
+                     Visibility="{Binding IsSIRVisibility, Converter={StaticResource BoolToVisibility}}"/>
 
             <!--Row 7-->
-            <TextBlock Text="{Binding SportCentreCodeTextBlock}" Grid.Column="0" Grid.Row="6"/>
-            <TextBox Text="{Binding SportCentreCodeTextBox}" Grid.Column="1" Grid.Row="6"/>
+            <TextBlock Text="{Binding SportCentreCodeTextBlock}" Grid.Column="0" Grid.Row="6"
+                       Visibility="{Binding SportCentreCodeVisibility, Converter={StaticResource BoolToVisibility}}"/>
+            <TextBox Text="{Binding SportCentreCodeTextBox}" Grid.Column="1" Grid.Row="6"
+                     Visibility="{Binding SportCentreCodeVisibility, Converter={StaticResource BoolToVisibility}}"/>
 
             <!--Row 8-->
-            <TextBlock Text="{Binding NatureOfIncidentTextBlock}" Grid.Column="0" Grid.Row="7"/>
-            <TextBox Text="{Binding NatureOfIncidentTextBox}" Grid.Column="1" Grid.Row="7"/>
+            <TextBlock Text="{Binding NatureOfIncidentTextBlock}" Grid.Column="0" Grid.Row="7"
+                       Visibility="{Binding NatureOfIncidentVisibility, Converter={StaticResource BoolToVisibility}}"/>
+            <TextBox Text="{Binding NatureOfIncidentTextBox}" Grid.Column="1" Grid.Row="7"
+                     Visibility="{Binding NatureOfIncidentVisibility, Converter={StaticResource BoolToVisibility}}"/>
 
         </Grid>
     </StackPanel>

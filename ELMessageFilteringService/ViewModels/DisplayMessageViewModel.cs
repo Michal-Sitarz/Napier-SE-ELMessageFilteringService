@@ -32,6 +32,11 @@ namespace ELMessageFilteringService.ViewModels
         public string SportCentreCodeTextBox { get; set; }
         public string NatureOfIncidentTextBox { get; set; }
 
+        public bool SubjectVisibility { get; private set; }
+        public bool IsSIRVisibility { get; private set; }
+        public bool SportCentreCodeVisibility { get; private set; }
+        public bool NatureOfIncidentVisibility { get; private set; }
+
         #endregion
 
         #region Constructor
@@ -59,6 +64,11 @@ namespace ELMessageFilteringService.ViewModels
             SportCentreCodeTextBox = string.Empty;
             NatureOfIncidentTextBox = string.Empty;
 
+            SubjectVisibility = true;
+            IsSIRVisibility = true;
+            SportCentreCodeVisibility = true;
+            NatureOfIncidentVisibility = true;
+
             UpdateTextBoxes();
         }
         // foreach field in a message -> generate row: textblock + textbox
@@ -76,7 +86,7 @@ namespace ELMessageFilteringService.ViewModels
             SenderTextBox = _message.Sender;
             ContentTextBox = _message.Content;
 
-            if(_message.Type == MessageType.Email)
+            if (_message.Type == MessageType.Email)
             {
                 Email email = (Email)_message;
                 SubjectTextBox = email.Subject;
@@ -84,6 +94,8 @@ namespace ELMessageFilteringService.ViewModels
                 if (!email.IsSIR)
                 {
                     IsSIRTextBox = "No";
+                    SportCentreCodeVisibility = false;
+                    NatureOfIncidentVisibility = false;
                 }
                 else
                 {
@@ -93,6 +105,13 @@ namespace ELMessageFilteringService.ViewModels
                     SportCentreCodeTextBox = sir.IncidentDetails.SportCentreCode;
                     NatureOfIncidentTextBox = sir.IncidentDetails.NatureOfIncident;
                 }
+            }
+            else
+            {
+                SubjectVisibility = false;
+                IsSIRVisibility = false;
+                SportCentreCodeVisibility = false;
+                NatureOfIncidentVisibility = false;
             }
 
         }
