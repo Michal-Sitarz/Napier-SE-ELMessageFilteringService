@@ -32,7 +32,7 @@ namespace ELMessageFilteringService.DataAccess
             }
             catch (Exception ex)
             {
-                MessageBox.Show("An error occured during exporting of a new message to the JSON file.\n", ex.ToString());
+                MessageBox.Show("An error occured during exporting of a new message to the JSON file.\n" + ex.ToString(), "Error");
                 return false;
             }
         }
@@ -59,7 +59,7 @@ namespace ELMessageFilteringService.DataAccess
             }
             catch (Exception ex)
             {
-                MessageBox.Show("An error occured during loading of the List of Messages.\n", ex.ToString());
+                MessageBox.Show("An error occured during loading of the List of Messages.\n\n" + ex.ToString(), "Error");
                 return null;
             }
         }
@@ -79,7 +79,7 @@ namespace ELMessageFilteringService.DataAccess
             }
             catch (Exception ex)
             {
-                MessageBox.Show("An error occured during loading of the List of Abbreviations.\n", ex.ToString());
+                MessageBox.Show("An error occured during loading of the List of Abbreviations.\n\n" + ex.ToString(), "Error");
                 return null;
             }
         }
@@ -88,13 +88,21 @@ namespace ELMessageFilteringService.DataAccess
         {
             try
             {
-                var fileContent = File.ReadAllText(statisticsJSONFilePath);
-                var statsFromJson = JsonSerializer.Deserialize<StatisticsDTO>(fileContent);
-                return statsFromJson;
+                if (File.Exists(statisticsJSONFilePath))
+                {
+                    var fileContent = File.ReadAllText(statisticsJSONFilePath);
+                    if (fileContent != null)
+                    {
+                        var statsFromJson = JsonSerializer.Deserialize<StatisticsDTO>(fileContent);
+                        return statsFromJson;
+                    }
+                }
+                //MessageBox.Show("File containing statistics has been either emptied, moved, deleted or corrupted.");
+                return null;
             }
             catch (Exception ex)
             {
-                MessageBox.Show("An error occured during importing of statistics from the JSON file.\n", ex.ToString());
+                MessageBox.Show("An error occured during importing of statistics from the JSON file.\n\n" + ex.ToString(), "Error");
                 return null;
             }
         }
@@ -114,7 +122,7 @@ namespace ELMessageFilteringService.DataAccess
             }
             catch (Exception ex)
             {
-                MessageBox.Show("An error occured during exporting of statistics to the JSON file.\n", ex.ToString());
+                MessageBox.Show("An error occured during exporting of statistics to the JSON file.\n\n" + ex.ToString(), "Error");
                 return false;
             }
         }

@@ -6,8 +6,7 @@ namespace ELMessageFilteringService.Models
 {
     public class SIR : Email
     {
-        public string SportCentreCode { get; private set; }
-        public string NatureOfIncident { get; private set; }
+        public SIRdetails IncidentDetails { get; private set; } = new SIRdetails();
 
         public void SetSportCentreCodeAndNatureOfIncident()
         {
@@ -20,11 +19,11 @@ namespace ELMessageFilteringService.Models
                 Regex regex = new Regex(@"[0-9][0-9]-[0-9][0-9][0-9]-[0-9][0-9]");
                 if (regex.IsMatch(centrecode))
                 {
-                    SportCentreCode = centrecode;
+                    IncidentDetails.SportCentreCode = centrecode;
                 }
                 else
                 {
-                    SportCentreCode = "Invalid Code";
+                    IncidentDetails.SportCentreCode = "Invalid Code";
                 }
 
                 var incidentTypes = new List<string>()
@@ -46,11 +45,11 @@ namespace ELMessageFilteringService.Models
                 {
                     if (remainingContent.StartsWith(incident))
                     {
-                        NatureOfIncident = incident;
+                        IncidentDetails.NatureOfIncident = incident;
                         Content = remainingContent.Substring(incident.Length + 1);
                         break;
                     }
-                    NatureOfIncident = "Unknown";
+                    IncidentDetails.NatureOfIncident = "Unknown";
                 }
 
             }

@@ -63,12 +63,13 @@ namespace ELMessageFilteringService.ViewModels
                 var newMsg = _messageService.AddNewMessage(message);
                 if (newMsg != null)
                 {
+
+
                     //Display newly added message in a new Window using DisplayViewModel
                     MessageBox.Show($"New {newMsg.Type} message has been added.\n\nSender: {newMsg.Sender}\nContent:\n{newMsg.Content}");
                     ClearInputFields();
-
+                   
                     
-
                 }
             }
             else

@@ -21,7 +21,8 @@
             <TextBlock Text="{Binding HeaderTextBlock}"/>
             <TextBox Text="{Binding HeaderTextBox}"/>
             <TextBlock Text="{Binding BodyTextBlock}"/>
-            <TextBox Text="{Binding BodyTextBox}" MinLines="4"
+            <TextBox Text="{Binding BodyTextBox}" 
+                     MinLines="4" MaxLines="4"
                      TextWrapping="Wrap" AcceptsReturn="True" 
                      HorizontalScrollBarVisibility="Disabled" 
                      VerticalScrollBarVisibility="Auto"/>

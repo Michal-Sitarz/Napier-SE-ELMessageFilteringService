@@ -20,25 +20,22 @@
     </UserControl.Resources>
 
     <DockPanel>
-        <StackPanel Margin="20 20">
+        <ScrollViewer>
+            <StackPanel Margin="20 20">
 
-            <TextBlock Text="{Binding HashtagsTextBlock}"/>
-            <DataGrid ItemsSource="{Binding HashtagsCollection}" />
+                <TextBlock Text="{Binding HashtagsTextBlock}"/>
+                <DataGrid ItemsSource="{Binding HashtagsCollection}" />
 
-            <TextBlock Text="{Binding MentionsTextBlock}"/>
-            <DataGrid ItemsSource="{Binding MentionsCollection}"/>
+                <TextBlock Text="{Binding MentionsTextBlock}"/>
+                <DataGrid ItemsSource="{Binding MentionsCollection}"/>
 
-            <TextBlock Text="{Binding SIRsTextBlock}"/>
-            <DataGrid ItemsSource="{Binding SIRsCollection}"/>
+                <TextBlock Text="{Binding SIRsTextBlock}"/>
+                <DataGrid ItemsSource="{Binding SIRsCollection}"/>
 
-            <TextBlock Text="{Binding UrlsTextBlock}"/>
-            <DataGrid ItemsSource="{Binding UrlsCollection}">
-            <!--AutoGenerateColumns="False">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Name}"/>
-                </DataGrid.Columns>-->
-            </DataGrid>
-            
-        </StackPanel>
+                <TextBlock Text="{Binding UrlsTextBlock}"/>
+                <ListView ItemsSource="{Binding UrlsCollection}"/>
+
+            </StackPanel>
+        </ScrollViewer>
     </DockPanel>
 </UserControl>

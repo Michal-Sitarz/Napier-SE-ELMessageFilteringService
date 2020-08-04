@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace ELMessageFilteringService.Models
 {
@@ -10,7 +11,7 @@ namespace ELMessageFilteringService.Models
 
         public IDictionary<string, int> MentionsOccurrence { get; set; } = new Dictionary<string, int>();
 
-        public IDictionary<string, string> SIRsRegistered { get; set; } = new Dictionary<string, string>();
+        public IList<SIRdetails> SIRsRegistered { get; set; } = new List<SIRdetails>();
 
         public IList<string> QuarantinedUrls { get; set; } = new List<string>();
     }

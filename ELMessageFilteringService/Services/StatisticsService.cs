@@ -36,24 +36,7 @@ namespace ELMessageFilteringService.Services
 
         public void UpdateStatistics()
         {
-            var jsonOptions = new JsonSerializerOptions
-            {
-                WriteIndented = true
-            };
-
-
-            //var v = new { Amount = 108, Message = "Hello" };  
-            //var stats = new { HashtagsOccurrence, MentionsOccurrence };
-
-
-            var json = JsonSerializer.Serialize(stats, jsonOptions);
-            //var hashtagsJson = JsonSerializer.Serialize(HashtagsOccurrence, jsonOptions);
-            //var mentionsJson = JsonSerializer.Serialize(MentionsOccurrence, jsonOptions);
-            //var registeredSIRsJson = JsonSerializer.Serialize(MentionsOccurrence, jsonOptions);
-            //var quarantinedUrlsJson = JsonSerializer.Serialize(MentionsOccurrence, jsonOptions);
-
             _dataProvider.ExportStatistics(stats);
-
         }
 
         public void AddHashtags(IList<string> hashtags)
@@ -88,7 +71,7 @@ namespace ELMessageFilteringService.Services
 
         public void AddSIRs(string sportCentreCode, string natureOfIncident)
         {
-            stats.SIRsRegistered.Add(sportCentreCode, natureOfIncident);
+            stats.SIRsRegistered.Add(new SIRdetails { SportCentreCode = sportCentreCode, NatureOfIncident = natureOfIncident });
         }
 
         public void AddQuarantinedUrls(IList<string> urls)

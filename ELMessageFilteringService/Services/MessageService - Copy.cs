@@ -66,7 +66,7 @@ namespace ELMessageFilteringService.Services
                                 SIR sir = (SIR)newMessage;
 
                                 sir.SetSportCentreCodeAndNatureOfIncident(); // remaining SIR properties
-                                _statisticsService.AddSIRs(sir.SportCentreCode, sir.NatureOfIncident);
+                                _statisticsService.AddSIRs(sir.IncidentDetails.SportCentreCode, sir.IncidentDetails.NatureOfIncident);
                             }
                             break;
 

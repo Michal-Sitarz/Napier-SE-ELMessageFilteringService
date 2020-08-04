@@ -25,7 +25,8 @@
             <TextBlock Text="{Binding BodyTextBlock}"/>
             <TextBox Text="{Binding BodyTextBox}" 
                      IsReadOnly="{Binding BodyTextBoxIsReadOnly}"
-                     MinLines="4" TextWrapping="Wrap" AcceptsReturn="True" 
+                     MinLines="4" MaxLines="4"
+                     TextWrapping="Wrap" AcceptsReturn="True" 
                      HorizontalScrollBarVisibility="Disabled" 
                      VerticalScrollBarVisibility="Auto"/>
             <Grid>

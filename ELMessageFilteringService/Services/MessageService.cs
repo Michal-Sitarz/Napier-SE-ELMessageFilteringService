@@ -22,11 +22,6 @@ namespace ELMessageFilteringService.Services
         }
         #endregion
 
-        //public IDictionary<string, string> GetAbbreviations()
-        //{
-        //    return (Dictionary<string, string>)_dataProvider.ImportAbbreviations();
-        //}
-
         public IList<RawMessage> GetRawMessages()
         {
             return _dataProvider.ImportMessages();
@@ -77,7 +72,7 @@ namespace ELMessageFilteringService.Services
                                 SIR sir = (SIR)newMessage;
                                 
                                 sir.SetSportCentreCodeAndNatureOfIncident(); // remaining SIR properties
-                                _statisticsService.AddSIRs(sir.SportCentreCode, sir.NatureOfIncident);
+                                _statisticsService.AddSIRs(sir.IncidentDetails.SportCentreCode, sir.IncidentDetails.NatureOfIncident);
                             }
                             break;
 
@@ -114,8 +109,7 @@ namespace ELMessageFilteringService.Services
             return null;
         }
 
-        // private helpers
-
+        #region Private Helper Methods
         private Message GetMessageWithType(RawMessage message)
         {
             switch (message.Header[0])
@@ -157,6 +151,6 @@ namespace ELMessageFilteringService.Services
             }
             return (body, "Message has no content!");
         }
-
+        #endregion
     }
 }
