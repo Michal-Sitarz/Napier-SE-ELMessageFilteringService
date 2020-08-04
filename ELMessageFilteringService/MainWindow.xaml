@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ELMessageFilteringService"
         mc:Ignorable="d"
         Title="Euston Leisure Message Filtering Service" 
-        Height="600" Width="700"
+        Height="640" Width="700"
         Background="DimGray"
         FontSize="12"
         WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">

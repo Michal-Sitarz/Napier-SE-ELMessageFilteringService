@@ -7,7 +7,9 @@ namespace ELMessageFilteringService.DataAccess
     {
         public bool ExportMessage(object message);
 
-        public IList<RawMessage> ImportMessages();
+        //public Message ImportLastMessage();
+
+        public IList<RawMessage> ImportRawMessages();
 
         public IDictionary<string, string> ImportAbbreviations();
 

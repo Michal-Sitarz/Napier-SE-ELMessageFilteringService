@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
 using System.Windows;
+using ELMessageFilteringService.Models.Enums;
 
 namespace ELMessageFilteringService.DataAccess
 {
@@ -14,7 +15,6 @@ namespace ELMessageFilteringService.DataAccess
         private readonly string messagesToImportCSVFilePath = @"C:\ELMfiles\MessagesToImport.csv";
         private readonly string abbreviationsListCSVFilePath = @"C:\ELMfiles\AbbreviationsList.csv";
         private readonly string statisticsJSONFilePath = @"C:\ELMfiles\Statistics.json";
-
 
         public bool ExportMessage(object message)
         {
@@ -37,7 +37,50 @@ namespace ELMessageFilteringService.DataAccess
             }
         }
 
-        public IList<RawMessage> ImportMessages()
+        //public Message ImportLastMessage()
+        //{
+        //    try
+        //    {
+        //        if (File.Exists(lastMessageJSONFilePath))
+        //        {
+        //            var fileContent = File.ReadAllText(lastMessageJSONFilePath);
+        //            if (fileContent != null)
+        //            {
+        //                var msg = JsonSerializer.Deserialize<Message>(fileContent);
+        //                switch (msg.Type)
+        //                {
+        //                    case MessageType.Sms:
+        //                    case MessageType.Tweet:
+        //                        return msg;
+
+        //                    case MessageType.Email:
+        //                        Email email = (Email)msg;
+        //                        if (!email.IsSIR)
+        //                        {
+        //                            var msgEmail = JsonSerializer.Deserialize<Email>(fileContent);
+        //                            return msgEmail;
+        //                        }
+        //                        else
+        //                        {
+        //                            var msgSIR = JsonSerializer.Deserialize<SIR>(fileContent);
+        //                            return msgSIR;
+        //                        }
+
+        //                    default:
+        //                        return null;
+        //                }
+        //            }
+        //        }
+        //        return null;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show("An error occured during importing of last message from the JSON file.\n\n" + ex.ToString(), "Error");
+        //        return null;
+        //    }
+        //}
+
+        public IList<RawMessage> ImportRawMessages()
         {
             var messages = new List<RawMessage>();
 

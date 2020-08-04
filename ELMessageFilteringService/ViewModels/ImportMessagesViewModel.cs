@@ -1,10 +1,12 @@
 ﻿using ELMessageFilteringService.Commands;
 using ELMessageFilteringService.Models;
 using ELMessageFilteringService.Services;
+using ELMessageFilteringService.Views;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace ELMessageFilteringService.ViewModels
@@ -29,9 +31,13 @@ namespace ELMessageFilteringService.ViewModels
 
         public string ImportButtonContent { get; private set; }
         public string NextButtonContent { get; private set; }
+        public string DisplayButtonContent { get; private set; }
 
         public ICommand ImportButtonCommand { get; private set; }
         public ICommand NextButtonCommand { get; private set; }
+        public ICommand DisplayButtonCommand { get; private set; }
+
+        public UserControl ContentControlBinding { get; private set; }
         #endregion
 
         #region Constructor

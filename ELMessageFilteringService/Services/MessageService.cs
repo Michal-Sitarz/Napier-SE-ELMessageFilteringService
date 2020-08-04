@@ -24,7 +24,7 @@ namespace ELMessageFilteringService.Services
 
         public IList<RawMessage> GetRawMessages()
         {
-            return _dataProvider.ImportMessages();
+            return _dataProvider.ImportRawMessages();
         }
 
         public IList<Message> GetExistingMessages()
@@ -39,6 +39,11 @@ namespace ELMessageFilteringService.Services
 
             return existingMessages;
         }
+
+        //public Message GetRecentlyAddedMessage()
+        //{
+        //    return _dataProvider.ImportLastMessage();
+        //}
 
         public Message AddNewMessage(RawMessage message)
         {

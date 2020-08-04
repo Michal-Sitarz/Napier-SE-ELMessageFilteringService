@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ELMessageFilteringService.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="700"
+             d:DesignHeight="640" d:DesignWidth="700"
              Background="DarkOliveGreen">
 
     <UserControl.Resources>
@@ -43,9 +43,11 @@
                 <Button Content="{Binding NextButtonContent}"
                         Command="{Binding NextButtonCommand}"
                         Grid.Column="2"/>
-                
+
             </Grid>
             <Separator/>
+            <ContentControl Content="{Binding ContentControlBinding}" />
+
         </StackPanel>
     </DockPanel>
 </UserControl>
