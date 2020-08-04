@@ -17,7 +17,6 @@ namespace ELMessageFilteringService.Models
                 {
                     content = value;
                 }
-
             }
         }
 

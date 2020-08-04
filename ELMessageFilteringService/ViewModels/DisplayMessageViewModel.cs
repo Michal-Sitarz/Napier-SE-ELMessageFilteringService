@@ -1,14 +1,11 @@
 ﻿using ELMessageFilteringService.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using ELMessageFilteringService.Models.Enums;
 
 namespace ELMessageFilteringService.ViewModels
 {
     public class DisplayMessageViewModel : BaseViewModel
     {
-        private Message _message;
+        private readonly Message _message;
 
         #region UI Binding Fields
 
@@ -71,11 +68,6 @@ namespace ELMessageFilteringService.ViewModels
 
             UpdateTextBoxes();
         }
-        // foreach field in a message -> generate row: textblock + textbox
-        #endregion
-
-        #region Click Helpers
-        // close button
         #endregion
 
         #region Other Helper Methods

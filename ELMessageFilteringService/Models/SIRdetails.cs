@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ELMessageFilteringService.Models
+﻿namespace ELMessageFilteringService.Models
 {
     public class SIRdetails
     {

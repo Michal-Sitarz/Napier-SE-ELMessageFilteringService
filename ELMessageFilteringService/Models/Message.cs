@@ -1,5 +1,4 @@
 ﻿using ELMessageFilteringService.Models.Enums;
-using System.Text.RegularExpressions;
 
 namespace ELMessageFilteringService.Models
 {

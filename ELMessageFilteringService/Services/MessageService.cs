@@ -1,11 +1,7 @@
 ﻿using ELMessageFilteringService.DataAccess;
 using ELMessageFilteringService.Models;
 using ELMessageFilteringService.Models.Enums;
-using ELMessageFilteringService.ViewModels;
-using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Windows;
 
 namespace ELMessageFilteringService.Services
 {
@@ -39,11 +35,6 @@ namespace ELMessageFilteringService.Services
 
             return existingMessages;
         }
-
-        //public Message GetRecentlyAddedMessage()
-        //{
-        //    return _dataProvider.ImportLastMessage();
-        //}
 
         public Message AddNewMessage(RawMessage message)
         {
@@ -140,7 +131,6 @@ namespace ELMessageFilteringService.Services
                     }
                 default:
                     return null;
-
             }
 
         }

@@ -1,5 +1,4 @@
 ﻿using ELMessageFilteringService.Commands;
-using ELMessageFilteringService.DataAccess;
 using ELMessageFilteringService.Views;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -8,8 +7,6 @@ namespace ELMessageFilteringService.ViewModels
 {
     public class MainWindowViewModel : BaseViewModel
     {
-        //private readonly IDataProvider _dataProvider;
-
         #region UI Binding Fields
         public string HomeButtonContent { get; private set; }
         public string AddMessageButtonContent { get; private set; }
@@ -25,10 +22,8 @@ namespace ELMessageFilteringService.ViewModels
         #endregion
 
         #region Constructor
-        public MainWindowViewModel(/*IDataProvider dataProvider*/)
+        public MainWindowViewModel()
         {
-            //_dataProvider = dataProvider;
-
             HomeButtonContent = "Home";
             AddMessageButtonContent = "Add New Message";
             ImportMessagesButtonContent = "Import Messages";
@@ -69,7 +64,5 @@ namespace ELMessageFilteringService.ViewModels
         }
         #endregion
 
-        #region Other Helpers
-        #endregion
     }
 }

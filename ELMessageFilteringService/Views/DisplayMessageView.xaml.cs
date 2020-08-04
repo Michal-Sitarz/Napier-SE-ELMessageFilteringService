@@ -1,6 +1,4 @@
-﻿using ELMessageFilteringService.DataAccess;
-using ELMessageFilteringService.Models;
-using ELMessageFilteringService.Services;
+﻿using ELMessageFilteringService.Models;
 using ELMessageFilteringService.ViewModels;
 using System.Windows.Controls;
 

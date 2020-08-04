@@ -1,10 +1,6 @@
 ﻿using ELMessageFilteringService.DataAccess;
 using ELMessageFilteringService.Models;
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Text;
-using System.Text.Json;
 
 namespace ELMessageFilteringService.Services
 {

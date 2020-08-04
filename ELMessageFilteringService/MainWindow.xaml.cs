@@ -1,5 +1,4 @@
-﻿using ELMessageFilteringService.DataAccess;
-using ELMessageFilteringService.ViewModels;
+﻿using ELMessageFilteringService.ViewModels;
 using System.Windows;
 
 namespace ELMessageFilteringService
@@ -13,8 +12,7 @@ namespace ELMessageFilteringService
         {
             InitializeComponent();
 
-            //DataProvider dataProvider = new DataProvider();
-            DataContext = new MainWindowViewModel(/*dataProvider*/);
+            DataContext = new MainWindowViewModel();
         }
     }
 }

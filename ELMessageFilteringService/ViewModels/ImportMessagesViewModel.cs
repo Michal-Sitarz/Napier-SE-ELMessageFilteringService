@@ -2,9 +2,7 @@
 using ELMessageFilteringService.Models;
 using ELMessageFilteringService.Services;
 using ELMessageFilteringService.Views;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;

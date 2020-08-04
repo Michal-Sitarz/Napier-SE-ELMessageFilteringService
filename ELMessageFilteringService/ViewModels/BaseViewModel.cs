@@ -1,7 +1,4 @@
-﻿using ELMessageFilteringService.Services;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Windows.Controls;
+﻿using System.ComponentModel;
 
 namespace ELMessageFilteringService.ViewModels
 {

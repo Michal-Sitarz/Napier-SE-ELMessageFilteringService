@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
 using System.Windows;
-using ELMessageFilteringService.Models.Enums;
 
 namespace ELMessageFilteringService.DataAccess
 {
@@ -36,49 +35,6 @@ namespace ELMessageFilteringService.DataAccess
                 return false;
             }
         }
-
-        //public Message ImportLastMessage()
-        //{
-        //    try
-        //    {
-        //        if (File.Exists(lastMessageJSONFilePath))
-        //        {
-        //            var fileContent = File.ReadAllText(lastMessageJSONFilePath);
-        //            if (fileContent != null)
-        //            {
-        //                var msg = JsonSerializer.Deserialize<Message>(fileContent);
-        //                switch (msg.Type)
-        //                {
-        //                    case MessageType.Sms:
-        //                    case MessageType.Tweet:
-        //                        return msg;
-
-        //                    case MessageType.Email:
-        //                        Email email = (Email)msg;
-        //                        if (!email.IsSIR)
-        //                        {
-        //                            var msgEmail = JsonSerializer.Deserialize<Email>(fileContent);
-        //                            return msgEmail;
-        //                        }
-        //                        else
-        //                        {
-        //                            var msgSIR = JsonSerializer.Deserialize<SIR>(fileContent);
-        //                            return msgSIR;
-        //                        }
-
-        //                    default:
-        //                        return null;
-        //                }
-        //            }
-        //        }
-        //        return null;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show("An error occured during importing of last message from the JSON file.\n\n" + ex.ToString(), "Error");
-        //        return null;
-        //    }
-        //}
 
         public IList<RawMessage> ImportRawMessages()
         {
@@ -140,7 +96,6 @@ namespace ELMessageFilteringService.DataAccess
                         return statsFromJson;
                     }
                 }
-                //MessageBox.Show("File containing statistics has been either emptied, moved, deleted or corrupted.");
                 return null;
             }
             catch (Exception ex)

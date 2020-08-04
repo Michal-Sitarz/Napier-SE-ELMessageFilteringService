@@ -7,8 +7,6 @@ namespace ELMessageFilteringService.Services
     {
         public Message AddNewMessage(RawMessage message);
 
-        //public Message GetRecentlyAddedMessage();
-
         public IList<Message> GetExistingMessages();
 
     }
