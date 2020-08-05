@@ -65,9 +65,9 @@ namespace ELMessageFilteringService.Services
             }
         }
 
-        public void AddSIRs(string sportCentreCode, string natureOfIncident)
+        public void AddSIRs(SIRdetails details)
         {
-            stats.SIRsRegistered.Add(new SIRdetails { SportCentreCode = sportCentreCode, NatureOfIncident = natureOfIncident });
+            stats.SIRsRegistered.Add(details);
         }
 
         public void AddQuarantinedUrls(IList<string> urls)

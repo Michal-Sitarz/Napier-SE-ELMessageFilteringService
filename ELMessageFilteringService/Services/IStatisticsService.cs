@@ -13,7 +13,7 @@ namespace ELMessageFilteringService.Services
 
         public void AddMentions(IList<string> mention);
 
-        public void AddSIRs(string sportCentreCode, string natureOfIncident);
+        public void AddSIRs(SIRdetails details);
 
         public void AddQuarantinedUrls(IList<string> urls);
     }
