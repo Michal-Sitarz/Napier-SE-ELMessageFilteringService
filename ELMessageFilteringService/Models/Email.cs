@@ -66,7 +66,8 @@ namespace ELMessageFilteringService.Models
 
                 for (int i = 0; i < contentWords.Length; i++)
                 {
-                    if (contentWords[i].StartsWith("http:\\"))
+                    if (contentWords[i].StartsWith("http://")
+                        || contentWords[i].StartsWith("https://"))
                     {
                         quarantinedUrls.Add(contentWords[i]);
                         contentWords[i] = "<URL Quarantined>";
