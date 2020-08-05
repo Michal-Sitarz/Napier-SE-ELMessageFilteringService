@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Text.Json;
 using System.Windows;
 
@@ -9,11 +10,11 @@ namespace ELMessageFilteringService.DataAccess
 {
     public class DataProvider : IDataProvider
     {
-        private readonly string allMessagesJSONFilePath = @"C:\ELMfiles\AllMessages.json";
-        private readonly string lastMessageJSONFilePath = @"C:\ELMfiles\LastMessage.json";
-        private readonly string messagesToImportCSVFilePath = @"C:\ELMfiles\MessagesToImport.csv";
-        private readonly string abbreviationsListCSVFilePath = @"C:\ELMfiles\AbbreviationsList.csv";
-        private readonly string statisticsJSONFilePath = @"C:\ELMfiles\Statistics.json";
+        private readonly string allMessagesJSONFile = "AllMessages.json";
+        private readonly string lastMessageJSONFile = "LastMessage.json";
+        private readonly string messagesToImportCSVFile = "MessagesToImport.csv";
+        private readonly string abbreviationsListCSVFile = "AbbreviationsList.csv";
+        private readonly string statisticsJSONFile = "Statistics.json";
 
         public bool ExportMessage(object message)
         {
@@ -25,8 +26,8 @@ namespace ELMessageFilteringService.DataAccess
             try
             {
                 var messageInJson = JsonSerializer.Serialize(message, jsonOptions);
-                File.AppendAllText(allMessagesJSONFilePath, messageInJson + "\n");
-                File.WriteAllText(lastMessageJSONFilePath, messageInJson);
+                File.AppendAllText(GetFilePath(allMessagesJSONFile), messageInJson + "\n");
+                File.WriteAllText(GetFilePath(lastMessageJSONFile), messageInJson);
                 return true;
             }
             catch (Exception ex)
@@ -42,7 +43,7 @@ namespace ELMessageFilteringService.DataAccess
 
             try
             {
-                var fileContent = File.ReadAllLines(messagesToImportCSVFilePath);
+                var fileContent = File.ReadAllLines(GetFilePath(messagesToImportCSVFile));
                 foreach (string fileLine in fileContent)
                 {
                     string[] line = fileLine.Split(',');
@@ -68,7 +69,7 @@ namespace ELMessageFilteringService.DataAccess
             var abbreviations = new Dictionary<string, string>();
             try
             {
-                var fileContent = File.ReadAllLines(abbreviationsListCSVFilePath);
+                var fileContent = File.ReadAllLines(GetFilePath(abbreviationsListCSVFile));
                 foreach (string fileLine in fileContent)
                 {
                     string[] line = fileLine.Split(',');
@@ -87,9 +88,9 @@ namespace ELMessageFilteringService.DataAccess
         {
             try
             {
-                if (File.Exists(statisticsJSONFilePath))
+                if (File.Exists(GetFilePath(statisticsJSONFile)))
                 {
-                    var fileContent = File.ReadAllText(statisticsJSONFilePath);
+                    var fileContent = File.ReadAllText(GetFilePath(statisticsJSONFile));
                     if (fileContent != null)
                     {
                         var statsFromJson = JsonSerializer.Deserialize<StatisticsDTO>(fileContent);
@@ -115,7 +116,7 @@ namespace ELMessageFilteringService.DataAccess
             try
             {
                 var statisticsInJson = JsonSerializer.Serialize(statistics, jsonOptions);
-                File.WriteAllText(statisticsJSONFilePath, statisticsInJson);
+                File.WriteAllText(GetFilePath(statisticsJSONFile), statisticsInJson);
                 return true;
             }
             catch (Exception ex)
@@ -123,6 +124,17 @@ namespace ELMessageFilteringService.DataAccess
                 MessageBox.Show("An error occured during exporting of statistics to the JSON file.\n\n" + ex.ToString(), "Error");
                 return false;
             }
+        }
+
+        private string GetFilePath(string fileName)
+        {
+            var assemblyLocation = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            var filePath = assemblyLocation + @"\ELMfiles\" + fileName;
+            if (!File.Exists(filePath))
+            {
+                filePath = @"C:\ELMfiles\" + fileName;
+            }
+            return filePath;
         }
     }
 }
